@@ -1,27 +1,28 @@
+{% extends "base.html" %}
+
 {% comment %}
-В слаке вас не смог найти.
-Все исправил в group_new. Проверяю напрямую на сайте, все отлично выглядит. Но pytest продолжает вылетать с ошибкой:
+В слаке не смог вас найти.
+Я бы оставил {% block title %} без <title></title> внутри, но тогда pytest продолжает вылетать с той же ошибкой:
 AssertionError: Отредактируйте HTML-шаблон, не найдено название страницы `<title>Записи сообщества {{ название_группы }} | Yatube</title>`
 {% endcomment %}
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Записи сообщества {{ group }} | Yatube</title>
-  </head>
-  <body>
-    {% for post in posts %}
-    <h1>{{ group }}</h1>
-    <p>
-      {{ group.description }}
-    </p>
 
+{% block title %}
+   <title>Записи сообщества {{ group.title }} | Yatube</title>
+{% endblock %}
+
+{% block header %}
+    <h1>{{ group.title }}</h1>
+    <p>{{group.description}}</p>
+{% endblock %}
+
+{% block content %}
+
+    {% for post in posts %}
     <h3>
         Автор: {{ post.author.get_full_name }}, дата публикации: {{ post.pub_date|date:"d M Y" }}
     </h3>
     <p> {{ post.text }}</p>
     <hr>
     {% endfor %}
-  </body>
-</html>
+
+{% endblock %}
