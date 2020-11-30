@@ -1,1 +1,2 @@
-# backend_community_homework
+# Yandex Praktikum 
+Sprint 3
